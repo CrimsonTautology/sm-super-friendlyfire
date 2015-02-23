@@ -91,7 +91,6 @@ public OnFriendlyfireChange(Handle:cvar, const String:oldValue[], const String:n
     }
 }
 
-
 bool:IsSuperFriendlyfireEnabled()
 {
     return GetConVarBool(g_Cvar_Enabled);
@@ -130,8 +129,16 @@ public UnColorBlindAllClients()
 
 SetClientOverlay(client, String:strOverlay[])
 {
-    new flags = GetCommandFlags("r_screenoverlay") & (~FCVAR_CHEAT);
+    if(client <= 0) return;
+    if(!IsClientInGame(client)) return;
+
+    //Allow cheat command
+    new original = GetCommandFlags("r_screenoverlay");
+    new flags =  original & (~FCVAR_CHEAT);
     SetCommandFlags("r_screenoverlay", flags);
 
     ClientCommand(client, "r_screenoverlay \"%s\"", strOverlay);
+
+    //Revert to original
+    SetCommandFlags("r_screenoverlay", original);
 }
