@@ -2,7 +2,7 @@
  * vim: set ts=4 :
  * =============================================================================
  * super_friendly_fire
- * Turns on FriendlyFire and colorblinds everyone
+ * Colorblinds everyone when mp_friendlyfire is enabled
  *
  * Copyright 2015 CrimsonTautology
  * =============================================================================
@@ -20,7 +20,7 @@ public Plugin:myinfo =
 {
     name = PLUGIN_NAME,
     author = "CrimsonTautology",
-    description = "Turns on FriendlyFire and colorblinds everyone",
+    description = "Colorblinds everyone when mp_friendlyfire is enabled",
     version = PLUGIN_VERSION,
     url = "https://github.com/CrimsonTautology/sm_super_friendly_fire"
 };
@@ -39,13 +39,6 @@ public OnPluginStart()
     HookEvent("player_spawn", Event_PlayerSpawn);
     HookConVarChange(g_Cvar_Enabled, OnEnabledChange);
     HookConVarChange(g_Cvar_FriendlyFire, OnFriendlyFireChange);
-
-    RegConsoleCmd("sm_test", Command_Test, "TODO: TEST");
-}
-
-public Action:Command_Test(client, args)
-{
-    return Plugin_Handled;
 }
 
 public Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
