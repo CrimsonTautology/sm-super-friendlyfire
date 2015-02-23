@@ -1,7 +1,7 @@
 /**
  * vim: set ts=4 :
  * =============================================================================
- * super_friendly_fire
+ * super_friendlyfire
  * Colorblinds everyone when mp_friendlyfire is enabled
  *
  * Copyright 2015 CrimsonTautology
@@ -14,7 +14,7 @@
 #include <sourcemod>
 
 #define PLUGIN_VERSION "0.1"
-#define PLUGIN_NAME "Super Friendly Fire"
+#define PLUGIN_NAME "Super Friendlyfire"
 
 public Plugin:myinfo =
 {
@@ -22,29 +22,29 @@ public Plugin:myinfo =
     author = "CrimsonTautology",
     description = "Colorblinds everyone when mp_friendlyfire is enabled",
     version = PLUGIN_VERSION,
-    url = "https://github.com/CrimsonTautology/sm_super_friendly_fire"
+    url = "https://github.com/CrimsonTautology/sm_super_friendlyfire"
 };
 
 
 new Handle:g_Cvar_Enabled = INVALID_HANDLE;
-new Handle:g_Cvar_FriendlyFire = INVALID_HANDLE;
+new Handle:g_Cvar_Friendlyfire = INVALID_HANDLE;
 
 public OnPluginStart()
 {
-    g_Cvar_FriendlyFire = FindConVar("mp_friendlyfire");
+    g_Cvar_Friendlyfire = FindConVar("mp_friendlyfire");
 
-    CreateConVar("sm_super_friendly_fire_version", PLUGIN_VERSION, PLUGIN_NAME, FCVAR_PLUGIN | FCVAR_SPONLY | FCVAR_REPLICATED | FCVAR_NOTIFY | FCVAR_DONTRECORD);
-    g_Cvar_Enabled = CreateConVar("sm_super_friendly_fire_enabled", "1", "Enabled");
+    CreateConVar("sm_super_friendlyfire_version", PLUGIN_VERSION, PLUGIN_NAME, FCVAR_PLUGIN | FCVAR_SPONLY | FCVAR_REPLICATED | FCVAR_NOTIFY | FCVAR_DONTRECORD);
+    g_Cvar_Enabled = CreateConVar("sm_super_friendlyfire", "1", "Enabled");
 
     HookEvent("player_spawn", Event_PlayerSpawn);
     HookConVarChange(g_Cvar_Enabled, OnEnabledChange);
-    HookConVarChange(g_Cvar_FriendlyFire, OnFriendlyFireChange);
+    HookConVarChange(g_Cvar_Friendlyfire, OnFriendlyfireChange);
 }
 
 public Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
 {
-    if(!IsFriendlyFireEnabled()) return;
-    if(!IsSuperFriendlyFireEnabled()) return;
+    if(!IsFriendlyfireEnabled()) return;
+    if(!IsSuperFriendlyfireEnabled()) return;
 
     new client = GetClientOfUserId(GetEventInt(event, "userid"));
 
@@ -65,15 +65,15 @@ public OnEnabledChange(Handle:cvar, const String:oldValue[], const String:newVal
     }
 
     //When changing from off to on
-    if(!was_on && now_on && IsFriendlyFireEnabled())
+    if(!was_on && now_on && IsFriendlyfireEnabled())
     {
         ColorBlindAllClients();
     }
 }
 
-public OnFriendlyFireChange(Handle:cvar, const String:oldValue[], const String:newValue[])
+public OnFriendlyfireChange(Handle:cvar, const String:oldValue[], const String:newValue[])
 {
-    if(cvar != g_Cvar_FriendlyFire) return;
+    if(cvar != g_Cvar_Friendlyfire) return;
 
     new bool:was_on = !!StringToInt(oldValue);
     new bool:now_on = !!StringToInt(newValue);
@@ -85,21 +85,21 @@ public OnFriendlyFireChange(Handle:cvar, const String:oldValue[], const String:n
     }
 
     //When changing from off to on
-    if(!was_on && now_on && IsSuperFriendlyFireEnabled())
+    if(!was_on && now_on && IsSuperFriendlyfireEnabled())
     {
         ColorBlindAllClients();
     }
 }
 
 
-bool:IsSuperFriendlyFireEnabled()
+bool:IsSuperFriendlyfireEnabled()
 {
     return GetConVarBool(g_Cvar_Enabled);
 }
 
-bool:IsFriendlyFireEnabled()
+bool:IsFriendlyfireEnabled()
 {
-    return GetConVarBool(g_Cvar_FriendlyFire);
+    return GetConVarBool(g_Cvar_Friendlyfire);
 }
 
 public ColorBlindClient(client)
