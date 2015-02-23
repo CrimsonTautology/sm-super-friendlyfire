@@ -54,7 +54,6 @@ public Event_PlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
 public OnEnabledChange(Handle:cvar, const String:oldValue[], const String:newValue[])
 {
     if(cvar != g_Cvar_Enabled) return;
-    if(!IsFriendlyFireEnabled()) return;
 
     new bool:was_on = !!StringToInt(oldValue);
     new bool:now_on = !!StringToInt(newValue);
@@ -66,7 +65,7 @@ public OnEnabledChange(Handle:cvar, const String:oldValue[], const String:newVal
     }
 
     //When changing from off to on
-    if(!was_on && now_on)
+    if(!was_on && now_on && IsFriendlyFireEnabled())
     {
         ColorBlindAllClients();
     }
@@ -75,7 +74,6 @@ public OnEnabledChange(Handle:cvar, const String:oldValue[], const String:newVal
 public OnFriendlyFireChange(Handle:cvar, const String:oldValue[], const String:newValue[])
 {
     if(cvar != g_Cvar_FriendlyFire) return;
-    if(!IsSuperFriendlyFireEnabled()) return;
 
     new bool:was_on = !!StringToInt(oldValue);
     new bool:now_on = !!StringToInt(newValue);
@@ -87,7 +85,7 @@ public OnFriendlyFireChange(Handle:cvar, const String:oldValue[], const String:n
     }
 
     //When changing from off to on
-    if(!was_on && now_on)
+    if(!was_on && now_on && IsSuperFriendlyFireEnabled())
     {
         ColorBlindAllClients();
     }
