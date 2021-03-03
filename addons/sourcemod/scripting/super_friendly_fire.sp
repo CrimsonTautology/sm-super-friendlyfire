@@ -13,7 +13,7 @@
 
 #include <sourcemod>
 
-#define PLUGIN_VERSION "0.1"
+#define PLUGIN_VERSION "1.10.0"
 #define PLUGIN_NAME "Super Friendlyfire"
 
 public Plugin:myinfo =
@@ -22,7 +22,7 @@ public Plugin:myinfo =
     author = "CrimsonTautology",
     description = "Colorblinds everyone when mp_friendlyfire is enabled",
     version = PLUGIN_VERSION,
-    url = "https://github.com/CrimsonTautology/sm_super_friendlyfire"
+    url = "https://github.com/CrimsonTautology/sm-super-friendlyfire"
 };
 
 
