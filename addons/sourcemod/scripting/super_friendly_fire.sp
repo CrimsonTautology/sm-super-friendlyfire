@@ -13,7 +13,7 @@
 
 #include <sourcemod>
 
-#define PLUGIN_VERSION "1.10.0"
+#define PLUGIN_VERSION "1.10.1"
 #define PLUGIN_NAME "Super Friendlyfire"
 
 public Plugin:myinfo =
@@ -33,7 +33,8 @@ public OnPluginStart()
 {
     g_Cvar_Friendlyfire = FindConVar("mp_friendlyfire");
 
-    CreateConVar("sm_super_friendlyfire_version", PLUGIN_VERSION, PLUGIN_NAME, FCVAR_PLUGIN | FCVAR_SPONLY | FCVAR_REPLICATED | FCVAR_NOTIFY | FCVAR_DONTRECORD);
+    CreateConVar("sm_super_friendlyfire_version", PLUGIN_VERSION, PLUGIN_NAME,
+            FCVAR_SPONLY | FCVAR_REPLICATED | FCVAR_NOTIFY | FCVAR_DONTRECORD);
     g_Cvar_Enabled = CreateConVar("sm_super_friendlyfire", "1", "Enabled");
 
     HookEvent("player_spawn", Event_PlayerSpawn);
